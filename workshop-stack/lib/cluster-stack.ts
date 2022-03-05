@@ -152,7 +152,7 @@ export class ClusterStack extends cdk.Stack {
     // the stack from being cleanly destroyed, so we will record the instance
     // role name and use it later to delete any attached policies before
     // cleanup.
-    new cdk.CfnOutput(this, 'NodegroupRoleName', {
+    new cdk.CfnOutput(this, 'NG1NodegroupRoleName', {
       value: ng1.role.roleName
     });
 
@@ -188,7 +188,7 @@ export class ClusterStack extends cdk.Stack {
     // the stack from being cleanly destroyed, so we will record the instance
     // role name and use it later to delete any attached policies before
     // cleanup.
-    new cdk.CfnOutput(this, 'NodegroupRoleName', {
+    new cdk.CfnOutput(this, 'ToolsNodegroupRoleName', {
       value: ng_tools.role.roleName
     });
    
@@ -307,6 +307,7 @@ export class ClusterStack extends cdk.Stack {
     // Create PriorityClass for demonstration
     cluster.addManifest('LowPriorityClass', {
       apiVersion: "scheduling.k8s.io/v1",
+      kind: "PriorityClass",
       description: "Low PriorityClass",
       metadata: {
         name: "bad"
