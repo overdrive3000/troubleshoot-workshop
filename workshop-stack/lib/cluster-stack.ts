@@ -157,7 +157,7 @@ export class ClusterStack extends cdk.Stack {
     });
 
     // Create Tools Managed Nodegroup.
-    const ng_tools = new eks.Nodegroup(this,'ng-1', {
+    const ng_tools = new eks.Nodegroup(this,'ng-tools', {
       cluster,
       desiredSize: 2,
       maxSize: 2,
