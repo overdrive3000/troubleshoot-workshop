@@ -20,15 +20,32 @@ export class SimulateTrafficStack extends cdk.Stack {
       vpc
     });
 
-    //const execRole = new iam.Role(this, 'ExecRole', {
-    //  assumedBy: new iam.ServicePrincipal('ecs-tasks.amazonaws.com')
-    //})
-    //execRole.addManagedPolicy(iam.ManagedPolicy.fromAwsManagedPolicyName('AmazonECSTaskExecutionRolePolicy'))
+    const execRole = new iam.Role(this, 'ExecRole', {
+      assumedBy: new iam.ServicePrincipal('ecs-tasks.amazonaws.com')
+    })
+    const execPol = new iam.ManagedPolicy(this, 'ExecPolicy', {
+      description: 'ECS Task Execution Role',
+      statements: [
+        new iam.PolicyStatement({
+          effect: iam.Effect.ALLOW,
+          actions: [
+             'ecr:GetAuthorizationToken',
+             'ecr:BatchCheckLayerAvailability',
+             'ecr:GetDownloadUrlForLayer',
+             'ecr:BatchGetImage',
+             'logs:CreateLogStream',
+             'logs:PutLogEvents'
+          ],
+          resources: ['*']
+        })
+      ]
+    })
 
     const taskDef = new ecs.FargateTaskDefinition(this, 'TaskDef', {
-      //executionRole: execRole,
+      executionRole: execRole,
       cpu: 512,
       memoryLimitMiB: 1024
+      
     });
     taskDef.addContainer('TrafficGenerator', {
       image: ecs.ContainerImage.fromRegistry("public.ecr.aws/j8e3t3x0/load-test:0.1.1"),
@@ -41,6 +58,7 @@ export class SimulateTrafficStack extends cdk.Stack {
         "-c",
         `while true; do locust --host ${props?.loadBalancerUrl} -f /config/locustfile.py --clients 4 --hatch-rate 5 --num-request 10 --no-web; done`
       ],
+      logging: new ecs.AwsLogDriver({ streamPrefix: "SimulateTraffic", mode: ecs.AwsLogDriverMode.NON_BLOCKING})
     });
 
     new ecs.FargateService(this, 'Service', {
