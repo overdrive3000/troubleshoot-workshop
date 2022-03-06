@@ -1,0 +1,201 @@
+{
+  "version": "16.0.0",
+  "artifacts": {
+    "Tree": {
+      "type": "cdk:tree",
+      "properties": {
+        "file": "tree.json"
+      }
+    },
+    "SimulateTrafficStack": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://720596165414/us-central-1",
+      "properties": {
+        "templateFile": "SimulateTrafficStack.template.json",
+        "validateOnSynth": false
+      },
+      "metadata": {
+        "/SimulateTrafficStack": [
+          {
+            "type": "aws:cdk:error",
+            "data": "Inaccessible host: `ec2.us-central-1.amazonaws.com' at port `undefined'. This service may not be available in the `us-central-1' region.: getaddrinfo EAI_AGAIN ec2.us-central-1.amazonaws.com",
+            "trace": [
+              "Annotations.addMessage (/home/ubuntu/repos/workshop-troubleshoot/simulate-traffic/node_modules/@aws-cdk/core/lib/annotations.ts:92:25)",
+              "Annotations.addError (/home/ubuntu/repos/workshop-troubleshoot/simulate-traffic/node_modules/@aws-cdk/core/lib/annotations.ts:51:10)",
+              "Function.getValue (/home/ubuntu/repos/workshop-troubleshoot/simulate-traffic/node_modules/@aws-cdk/core/lib/context-provider.ts:111:31)",
+              "Function.fromLookup (/home/ubuntu/repos/workshop-troubleshoot/simulate-traffic/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:1165:66)",
+              "new SimulateTrafficStack (/home/ubuntu/repos/workshop-troubleshoot/simulate-traffic/lib/simulate-traffic-stack.ts:14:25)",
+              "Object.<anonymous> (/home/ubuntu/repos/workshop-troubleshoot/simulate-traffic/bin/simulate-traffic.ts:8:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Module.m._compile (/home/ubuntu/repos/workshop-troubleshoot/simulate-traffic/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Object.require.extensions.<computed> [as .ts] (/home/ubuntu/repos/workshop-troubleshoot/simulate-traffic/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "main (/home/ubuntu/repos/workshop-troubleshoot/simulate-traffic/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/home/ubuntu/repos/workshop-troubleshoot/simulate-traffic/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/SimulateTrafficStack/Cluster/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClusterEB0386A7",
+            "trace": [
+              "new Cluster (/home/ubuntu/repos/workshop-troubleshoot/simulate-traffic/node_modules/@aws-cdk/aws-ecs/lib/cluster.ts:219:21)",
+              "new SimulateTrafficStack (/home/ubuntu/repos/workshop-troubleshoot/simulate-traffic/lib/simulate-traffic-stack.ts:18:21)",
+              "Object.<anonymous> (/home/ubuntu/repos/workshop-troubleshoot/simulate-traffic/bin/simulate-traffic.ts:8:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Module.m._compile (/home/ubuntu/repos/workshop-troubleshoot/simulate-traffic/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Object.require.extensions.<computed> [as .ts] (/home/ubuntu/repos/workshop-troubleshoot/simulate-traffic/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "main (/home/ubuntu/repos/workshop-troubleshoot/simulate-traffic/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/home/ubuntu/repos/workshop-troubleshoot/simulate-traffic/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/SimulateTrafficStack/TaskDef/TaskRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "TaskDefTaskRole1EDB4A67",
+            "trace": [
+              "new Role (/home/ubuntu/repos/workshop-troubleshoot/simulate-traffic/node_modules/@aws-cdk/aws-iam/lib/role.ts:358:18)",
+              "new TaskDefinition (/home/ubuntu/repos/workshop-troubleshoot/simulate-traffic/node_modules/@aws-cdk/aws-ecs/lib/base/task-definition.ts:426:39)",
+              "new FargateTaskDefinition (/home/ubuntu/repos/workshop-troubleshoot/simulate-traffic/node_modules/@aws-cdk/aws-ecs/lib/fargate/fargate-task-definition.ts:135:5)",
+              "new SimulateTrafficStack (/home/ubuntu/repos/workshop-troubleshoot/simulate-traffic/lib/simulate-traffic-stack.ts:22:21)",
+              "Object.<anonymous> (/home/ubuntu/repos/workshop-troubleshoot/simulate-traffic/bin/simulate-traffic.ts:8:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Module.m._compile (/home/ubuntu/repos/workshop-troubleshoot/simulate-traffic/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Object.require.extensions.<computed> [as .ts] (/home/ubuntu/repos/workshop-troubleshoot/simulate-traffic/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "main (/home/ubuntu/repos/workshop-troubleshoot/simulate-traffic/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/home/ubuntu/repos/workshop-troubleshoot/simulate-traffic/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/SimulateTrafficStack/TaskDef/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "TaskDef54694570",
+            "trace": [
+              "new TaskDefinition (/home/ubuntu/repos/workshop-troubleshoot/simulate-traffic/node_modules/@aws-cdk/aws-ecs/lib/base/task-definition.ts:445:21)",
+              "new FargateTaskDefinition (/home/ubuntu/repos/workshop-troubleshoot/simulate-traffic/node_modules/@aws-cdk/aws-ecs/lib/fargate/fargate-task-definition.ts:135:5)",
+              "new SimulateTrafficStack (/home/ubuntu/repos/workshop-troubleshoot/simulate-traffic/lib/simulate-traffic-stack.ts:22:21)",
+              "Object.<anonymous> (/home/ubuntu/repos/workshop-troubleshoot/simulate-traffic/bin/simulate-traffic.ts:8:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Module.m._compile (/home/ubuntu/repos/workshop-troubleshoot/simulate-traffic/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Object.require.extensions.<computed> [as .ts] (/home/ubuntu/repos/workshop-troubleshoot/simulate-traffic/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "main (/home/ubuntu/repos/workshop-troubleshoot/simulate-traffic/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/home/ubuntu/repos/workshop-troubleshoot/simulate-traffic/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/SimulateTrafficStack/Service/Service": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ServiceD69D759B",
+            "trace": [
+              "new BaseService (/home/ubuntu/repos/workshop-troubleshoot/simulate-traffic/node_modules/@aws-cdk/aws-ecs/lib/base/base-service.ts:438:21)",
+              "new FargateService (/home/ubuntu/repos/workshop-troubleshoot/simulate-traffic/node_modules/@aws-cdk/aws-ecs/lib/fargate/fargate-service.ts:137:5)",
+              "new SimulateTrafficStack (/home/ubuntu/repos/workshop-troubleshoot/simulate-traffic/lib/simulate-traffic-stack.ts:36:5)",
+              "Object.<anonymous> (/home/ubuntu/repos/workshop-troubleshoot/simulate-traffic/bin/simulate-traffic.ts:8:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Module.m._compile (/home/ubuntu/repos/workshop-troubleshoot/simulate-traffic/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Object.require.extensions.<computed> [as .ts] (/home/ubuntu/repos/workshop-troubleshoot/simulate-traffic/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "main (/home/ubuntu/repos/workshop-troubleshoot/simulate-traffic/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/home/ubuntu/repos/workshop-troubleshoot/simulate-traffic/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/SimulateTrafficStack/Service/SecurityGroup/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ServiceSecurityGroupC96ED6A7",
+            "trace": [
+              "new SecurityGroup (/home/ubuntu/repos/workshop-troubleshoot/simulate-traffic/node_modules/@aws-cdk/aws-ec2/lib/security-group.ts:466:26)",
+              "FargateService.configureAwsVpcNetworkingWithSecurityGroups (/home/ubuntu/repos/workshop-troubleshoot/simulate-traffic/node_modules/@aws-cdk/aws-ecs/lib/base/base-service.ts:848:25)",
+              "new FargateService (/home/ubuntu/repos/workshop-troubleshoot/simulate-traffic/node_modules/@aws-cdk/aws-ecs/lib/fargate/fargate-service.ts:156:10)",
+              "new SimulateTrafficStack (/home/ubuntu/repos/workshop-troubleshoot/simulate-traffic/lib/simulate-traffic-stack.ts:36:5)",
+              "Object.<anonymous> (/home/ubuntu/repos/workshop-troubleshoot/simulate-traffic/bin/simulate-traffic.ts:8:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Module.m._compile (/home/ubuntu/repos/workshop-troubleshoot/simulate-traffic/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Object.require.extensions.<computed> [as .ts] (/home/ubuntu/repos/workshop-troubleshoot/simulate-traffic/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "main (/home/ubuntu/repos/workshop-troubleshoot/simulate-traffic/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/home/ubuntu/repos/workshop-troubleshoot/simulate-traffic/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ]
+      },
+      "displayName": "SimulateTrafficStack"
+    }
+  },
+  "missing": [
+    {
+      "key": "vpc-provider:account=720596165414:filter.isDefault=true:region=us-central-1:returnAsymmetricSubnets=true",
+      "provider": "vpc-provider",
+      "props": {
+        "account": "720596165414",
+        "region": "us-central-1",
+        "filter": {
+          "isDefault": "true"
+        },
+        "returnAsymmetricSubnets": true
+      }
+    }
+  ]
+}

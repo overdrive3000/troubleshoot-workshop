@@ -1,0 +1,122 @@
+{
+  "Resources": {
+    "ClusterEB0386A7": {
+      "Type": "AWS::ECS::Cluster",
+      "Metadata": {
+        "aws:cdk:path": "SimulateTrafficStack/Cluster/Resource"
+      }
+    },
+    "TaskDefTaskRole1EDB4A67": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "ecs-tasks.amazonaws.com"
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "SimulateTrafficStack/TaskDef/TaskRole/Resource"
+      }
+    },
+    "TaskDef54694570": {
+      "Type": "AWS::ECS::TaskDefinition",
+      "Properties": {
+        "ContainerDefinitions": [
+          {
+            "Command": [
+              "-c",
+              "while true; do locust --host  -f /config/locustfile.py --clients 4 --hatch-rate 5 --num-request 10 --no-web; done"
+            ],
+            "Cpu": 512,
+            "EntryPoint": [
+              "/bin/sh"
+            ],
+            "Essential": true,
+            "Image": "public.ecr.aws/j8e3t3x0/load-test:0.1.1",
+            "Memory": 1024,
+            "Name": "TrafficGenerator"
+          }
+        ],
+        "Cpu": "256",
+        "Family": "SimulateTrafficStackTaskDefCA0DEB61",
+        "Memory": "512",
+        "NetworkMode": "awsvpc",
+        "RequiresCompatibilities": [
+          "FARGATE"
+        ],
+        "TaskRoleArn": {
+          "Fn::GetAtt": [
+            "TaskDefTaskRole1EDB4A67",
+            "Arn"
+          ]
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "SimulateTrafficStack/TaskDef/Resource"
+      }
+    },
+    "ServiceD69D759B": {
+      "Type": "AWS::ECS::Service",
+      "Properties": {
+        "Cluster": {
+          "Ref": "ClusterEB0386A7"
+        },
+        "DeploymentConfiguration": {
+          "MaximumPercent": 200,
+          "MinimumHealthyPercent": 50
+        },
+        "DesiredCount": 1,
+        "EnableECSManagedTags": false,
+        "LaunchType": "FARGATE",
+        "NetworkConfiguration": {
+          "AwsvpcConfiguration": {
+            "AssignPublicIp": "DISABLED",
+            "SecurityGroups": [
+              {
+                "Fn::GetAtt": [
+                  "ServiceSecurityGroupC96ED6A7",
+                  "GroupId"
+                ]
+              }
+            ],
+            "Subnets": [
+              "p-12345",
+              "p-67890"
+            ]
+          }
+        },
+        "TaskDefinition": {
+          "Ref": "TaskDef54694570"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "SimulateTrafficStack/Service/Service"
+      }
+    },
+    "ServiceSecurityGroupC96ED6A7": {
+      "Type": "AWS::EC2::SecurityGroup",
+      "Properties": {
+        "GroupDescription": "SimulateTrafficStack/Service/SecurityGroup",
+        "SecurityGroupEgress": [
+          {
+            "CidrIp": "0.0.0.0/0",
+            "Description": "Allow all outbound traffic by default",
+            "IpProtocol": "-1"
+          }
+        ],
+        "VpcId": "vpc-12345"
+      },
+      "Metadata": {
+        "aws:cdk:path": "SimulateTrafficStack/Service/SecurityGroup/Resource"
+      }
+    }
+  }
+}
