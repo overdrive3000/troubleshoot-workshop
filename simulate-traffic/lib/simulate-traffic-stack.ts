@@ -26,7 +26,9 @@ export class SimulateTrafficStack extends cdk.Stack {
     execRole.addManagedPolicy(iam.ManagedPolicy.fromAwsManagedPolicyName('AmazonECSTaskExecutionRolePolicy'))
 
     const taskDef = new ecs.FargateTaskDefinition(this, 'TaskDef', {
-      executionRole: execRole
+      executionRole: execRole,
+      cpu: 512,
+      memoryLimitMiB: 1024
     });
     taskDef.addContainer('TrafficGenerator', {
       image: ecs.ContainerImage.fromRegistry("public.ecr.aws/j8e3t3x0/load-test:0.1.1"),
