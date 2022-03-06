@@ -146,6 +146,7 @@ export class ClusterStack extends cdk.Stack {
       },
       subnets: vpc.selectSubnets({ subnetType: ec2.SubnetType.PRIVATE_WITH_NAT })
     });
+    ng1.role.addManagedPolicy(iam.ManagedPolicy.fromAwsManagedPolicyName('AmazonSSMManagedInstanceCore'))
     
     // During internal testing we found that Isengard account baselining
     // was attaching IAM roles to instances in the background. This prevents
@@ -173,7 +174,7 @@ export class ClusterStack extends cdk.Stack {
         ec2.InstanceType.of(ec2.InstanceClass.T3A, ec2.InstanceSize.LARGE),
       ],
       labels: {
-        'nodegroup-role': 'web-tools',
+        'nodegroup-role': 'tools',
       },
       taints: [{
         effect: eks.TaintEffect.NO_SCHEDULE,
@@ -182,6 +183,7 @@ export class ClusterStack extends cdk.Stack {
       }],
       subnets: vpc.selectSubnets({ subnetType: ec2.SubnetType.PRIVATE_WITH_NAT })
     });
+    ng_tools.role.addManagedPolicy(iam.ManagedPolicy.fromAwsManagedPolicyName('AmazonSSMManagedInstanceCore'))
 
     // During internal testing we found that Isengard account baselining
     // was attaching IAM roles to instances in the background. This prevents
