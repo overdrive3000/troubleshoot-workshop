@@ -20,13 +20,13 @@ export class SimulateTrafficStack extends cdk.Stack {
       vpc
     });
 
-    const execRole = new iam.Role(this, 'ExecRole', {
-      assumedBy: new iam.ServicePrincipal('ecs-tasks.amazonaws.com')
-    })
-    execRole.addManagedPolicy(iam.ManagedPolicy.fromAwsManagedPolicyName('AmazonECSTaskExecutionRolePolicy'))
+    //const execRole = new iam.Role(this, 'ExecRole', {
+    //  assumedBy: new iam.ServicePrincipal('ecs-tasks.amazonaws.com')
+    //})
+    //execRole.addManagedPolicy(iam.ManagedPolicy.fromAwsManagedPolicyName('AmazonECSTaskExecutionRolePolicy'))
 
     const taskDef = new ecs.FargateTaskDefinition(this, 'TaskDef', {
-      executionRole: execRole,
+      //executionRole: execRole,
       cpu: 512,
       memoryLimitMiB: 1024
     });
