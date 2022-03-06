@@ -48,7 +48,7 @@ export class SimulateTrafficStack extends cdk.Stack {
       
     });
     taskDef.addContainer('TrafficGenerator', {
-      image: ecs.ContainerImage.fromRegistry("public.ecr.aws/j8e3t3x0/load-test:0.1.1"),
+      image: ecs.ContainerImage.fromRegistry('public.ecr.aws/j8e3t3x0/load-test:0.1.1'),
       memoryLimitMiB: 1024,
       cpu: 512,
       entryPoint: [
@@ -64,7 +64,8 @@ export class SimulateTrafficStack extends cdk.Stack {
     new ecs.FargateService(this, 'Service', {
       cluster: cluster,
       taskDefinition: taskDef,
-      desiredCount: props?.numReplicas 
+      desiredCount: props?.numReplicas,
+      assignPublicIp: true 
     });
   }
 }
