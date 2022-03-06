@@ -266,8 +266,11 @@ export class ClusterStack extends cdk.Stack {
               // Install eksctl
               'curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp',
               'sudo mv /tmp/eksctl /usr/local/bin',
-	      // Install jq
+	            // Install jq
               'sudo yum -y install jq gettext bash-completion moreutils',
+              // Install SSM Session Manager plugin
+              'curl "https://s3.amazonaws.com/session-manager-downloads/plugin/latest/linux_64bit/session-manager-plugin.rpm" -o "/tmp/session-manager-plugin.rpm"',
+              'sudo yum install -y /tmp/session-manager-plugin.rpm'
             ]
           },
         },
