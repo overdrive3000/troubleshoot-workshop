@@ -260,7 +260,7 @@ export class ClusterStack extends cdk.Stack {
               'chmod +x /tmp/kubectl',
               'mv /tmp/kubectl /usr/local/bin/kubectl',
               // Update kube config to EKS cluster
-              `su -l -c 'aws eks update-kubeconfig --name ${cluster.clusterName} --region ${this.region} --role-arn ${instanceRole.roleArn}' ec2-user`,
+              `su -l -c 'aws eks update-kubeconfig --name ${cluster.clusterName} --alias infra --region ${this.region} --role-arn ${instanceRole.roleArn}' ec2-user`,
               // Install Helm
               'curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash',
               // Install eksctl

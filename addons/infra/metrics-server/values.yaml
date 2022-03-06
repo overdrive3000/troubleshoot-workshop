@@ -1,0 +1,17 @@
+---
+image:
+  registry: public.ecr.aws
+apiService:
+  create: true
+extraArgs:
+  cert-dir: "/tmp"
+  kubelet-preferred-address-types: InternalIP,ExternalIP,Hostname
+  kubelet-use-node-status-port: true
+replicas: 1
+priorityClassName: system-cluster-critical
+resources:
+  requests:
+    cpu: 100m
+    memory: 256Mi
+  limits:
+    memory: 256Mi

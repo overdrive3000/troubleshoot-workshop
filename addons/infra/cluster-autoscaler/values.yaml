@@ -1,0 +1,29 @@
+---
+image:
+  tag: v1.21.2
+cloudProvider: aws
+rbac:
+  create: true
+  serviceAccount:
+    create: false
+    name: cluster-autoscaler
+priorityClassName: system-cluster-critical
+autoDiscovery:
+  clusterName: infra
+awsRegion: eu-central-1
+replicaCount: 3
+resources:
+  requests:
+    cpu: 100m
+    memory: 512Mi
+  limits:
+    memory: 512Mi
+extraArgs:
+  v: 4
+  stderrthreshold: info
+  logtostderr: true
+  ignore-daemonsets-utilization: true
+  scale-down-delay-after-add: 5m
+  scale-down-delay-after-failure: 5m
+  skip-nodes-with-system-pods: false
+  expander: most-pods

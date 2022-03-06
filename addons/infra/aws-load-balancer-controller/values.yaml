@@ -1,0 +1,22 @@
+---
+enableShield: false
+enableWaf: false
+enableWafv2: false
+defaultTags:
+  auto-delete: "false"
+podDisruptionBudget:
+  maxUnavailable: 1
+rbac:
+  create: true
+serviceAccount:
+  create: false
+  name: aws-load-balancer-controller
+priorityClassName: system-cluster-critical
+replicaCount: 3
+clusterName: infra
+resources:
+  limits:
+    memory: 256Mi
+  requests:
+    memory: 256Mi
+    cpu: 100m
