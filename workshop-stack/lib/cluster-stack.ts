@@ -1,8 +1,6 @@
 import * as cdk from '@aws-cdk/core';
-import * as apigateway from '@aws-cdk/aws-apigateway';
 import * as eks from '@aws-cdk/aws-eks';
 import * as ec2 from '@aws-cdk/aws-ec2';
-import * as sns from '@aws-cdk/aws-sns';
 import * as iam from '@aws-cdk/aws-iam';
 import * as cr from '@aws-cdk/custom-resources';
 import * as logs from '@aws-cdk/aws-logs';
@@ -198,6 +196,36 @@ export class ClusterStack extends cdk.Stack {
 
     // Add our instance role as a cluster admin
     cluster.awsAuth.addMastersRole(instanceRole);
+
+    // Enable cluster loggin
+    new cr.AwsCustomResource(this, 'ClusterLogs', {
+      policy: cr.AwsCustomResourcePolicy.fromSdkCalls({
+        resources: [`${cluster.clusterArn}/update-config`]
+      }),
+      onCreate: {
+        physicalResourceId: { id: `${cluster.clusterArn}/LogsEnabler` },
+        service: 'EKS',
+        action: 'updateClusterConfig',
+        region: this.region,
+        parameters: {
+          name: cluster.clusterName,
+          logging: {
+            clusterLogging: [
+              {
+                enabled: true,
+                types: [
+                  'api',
+                  'audit',
+                  'authenticator',
+                  'controllerManager',
+                  'scheduler'
+                ]
+              }
+            ]
+          }
+        }
+      }
+    });
 
 
     // Since Cloud9 has the SSM agent on it, we'll take advantage of its
@@ -462,5 +490,14 @@ export class ClusterStack extends cdk.Stack {
     albServiceAccount.addToPrincipalPolicy(albPolicy);
     albServiceAccount.node.addDependency(infrastructure_ns);
     albServiceAccount.node._actualNode.addDependency(infrastructure_ns);
+    // Decrease CoreDNS replica number
+    new eks.KubernetesPatch(this, 'DecreaseCoreDNS', {
+      cluster,
+      resourceName: "deployment/coredns",
+      resourceNamespace: "kube-system",
+      applyPatch: { spec: { replicas: 1} },
+      restorePatch: { spec: { replicas: 2 } }
+    });
+
   }
 }

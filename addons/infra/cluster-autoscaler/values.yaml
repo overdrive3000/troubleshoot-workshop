@@ -7,7 +7,7 @@ rbac:
   serviceAccount:
     create: false
     name: cluster-autoscaler
-priorityClassName: system-cluster-critical
+priorityClassName: bad
 autoDiscovery:
   clusterName: infra
 awsRegion: eu-central-1
