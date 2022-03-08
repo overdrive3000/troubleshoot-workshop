@@ -7,13 +7,15 @@ import { ClusterStack } from '../lib/cluster-stack';
 
 const app = new cdk.App();
 
-new BootstrapStack(app, 'BootstrapStack', {
+const bootstrapStack = new BootstrapStack(app, 'BootstrapStack', {
   sourceZipFile: process.env.ZIPFILE || 'eks-workshop-stack-app.zip',
   sourceZipFileChecksum: process.env.ZIPFILE_CHECKSUM || '',
 });
+cdk.Tags.of(bootstrapStack).add('auto-delete', 'false');
+cdk.Tags.of(bootstrapStack).add('auto-stop', 'false');
 
 
-new ClusterStack(app, 'ClusterStack', {
+const clusterStack = new ClusterStack(app, 'ClusterStack', {
   env: {
     region: process.env.AWS_REGION || process.env.AWS_DEFAULT_REGION,
     account: process.env.AWS_ACCOUNT_ID
@@ -22,4 +24,5 @@ new ClusterStack(app, 'ClusterStack', {
   cloud9EnvironmentId: process.env.CLOUD9_ENVIRONMENT_ID || 'CLOUD9_ENVIRONMENT_ID_NOT_SET',
   codeBuildRoleArn: process.env.BUILD_ROLE_ARN || 'arn:aws:123456789012::iam:role/NOT_SET'
 });
-
+cdk.Tags.of(clusterStack).add('auto-delete', 'false');
+cdk.Tags.of(clusterStack).add('auto-stop', 'false');

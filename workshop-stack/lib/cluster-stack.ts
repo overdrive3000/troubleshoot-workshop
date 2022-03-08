@@ -6,7 +6,6 @@ import * as cr from '@aws-cdk/custom-resources';
 import * as logs from '@aws-cdk/aws-logs';
 import * as lambda from '@aws-cdk/aws-lambda';
 import * as path from 'path';
-import { PolicyStatement } from '@aws-cdk/aws-iam';
 
 export interface ClusterStackProps extends cdk.StackProps {
   vpcId: string
@@ -118,6 +117,11 @@ export class ClusterStack extends cdk.Stack {
       clusterName: 'troubleshoot-workshop',
       defaultCapacity: 0,
       mastersRole: instanceRole,
+      outputConfigCommand: true,
+      tags: {
+        'auto-stop': 'false',
+        'auto-delete': 'false'
+      }
     });
     cluster.connections.allowFrom(workspaceSecurityGroup, ec2.Port.tcp(443));
     cluster.connections.allowFrom(workspaceSecurityGroup, ec2.Port.tcp(80));
@@ -142,7 +146,11 @@ export class ClusterStack extends cdk.Stack {
       labels: {
         'nodegroup-role': 'web-workload',
       },
-      subnets: vpc.selectSubnets({ subnetType: ec2.SubnetType.PRIVATE_WITH_NAT })
+      subnets: vpc.selectSubnets({ subnetType: ec2.SubnetType.PRIVATE_WITH_NAT }),
+      tags: {
+        'auto-delete': 'false',
+        'auto-stop': 'false'
+      }
     });
     ng1.role.addManagedPolicy(iam.ManagedPolicy.fromAwsManagedPolicyName('AmazonSSMManagedInstanceCore'))
     
@@ -179,7 +187,11 @@ export class ClusterStack extends cdk.Stack {
         key: 'component',
         value: 'chaos'
       }],
-      subnets: vpc.selectSubnets({ subnetType: ec2.SubnetType.PRIVATE_WITH_NAT })
+      subnets: vpc.selectSubnets({ subnetType: ec2.SubnetType.PRIVATE_WITH_NAT }),
+      tags: {
+        'auto-delete': 'false',
+        'auto-stop': 'false'
+      }
     });
     ng_tools.role.addManagedPolicy(iam.ManagedPolicy.fromAwsManagedPolicyName('AmazonSSMManagedInstanceCore'))
 
