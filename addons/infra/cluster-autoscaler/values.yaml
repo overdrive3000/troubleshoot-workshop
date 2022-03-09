@@ -7,9 +7,9 @@ rbac:
   serviceAccount:
     create: false
     name: cluster-autoscaler
-priorityClassName: bad
+priorityClassName: important
 autoDiscovery:
-  clusterName: infra
+  clusterName: change-it
 awsRegion: eu-central-1
 replicaCount: 3
 resources:

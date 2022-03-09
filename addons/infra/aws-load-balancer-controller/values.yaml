@@ -13,7 +13,7 @@ serviceAccount:
   name: aws-load-balancer-controller
 priorityClassName: system-cluster-critical
 replicaCount: 3
-clusterName: infra
+clusterName: change-it
 resources:
   limits:
     memory: 256Mi

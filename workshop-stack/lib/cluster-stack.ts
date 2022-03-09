@@ -355,10 +355,10 @@ export class ClusterStack extends cdk.Stack {
       kind: "PriorityClass",
       description: "Low PriorityClass",
       metadata: {
-        name: "bad"
+        name: "important"
       },
       preemptionPolicy: "PreemptLowerPriority",
-      value: -1
+      value: -10
     });
 
     // Create a service accounts
