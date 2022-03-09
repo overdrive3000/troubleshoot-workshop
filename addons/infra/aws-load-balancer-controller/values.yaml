@@ -12,7 +12,7 @@ serviceAccount:
   create: false
   name: aws-load-balancer-controller
 priorityClassName: system-cluster-critical
-replicaCount: 3
+replicaCount: 1
 clusterName: change-it
 resources:
   limits:
