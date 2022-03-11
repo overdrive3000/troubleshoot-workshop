@@ -56,7 +56,7 @@ export class SimulateTrafficStack extends cdk.Stack {
       ],
       command: [
         "-c",
-        `while true; do locust --host ${props?.loadBalancerUrl} -f /config/locustfile.py --clients 4 --hatch-rate 5 --num-request 10 --no-web; done`
+        `while true; do locust --host ${props?.loadBalancerUrl} -f /config/locustfile.py --clients 15 --hatch-rate 5 --num-request 20 --no-web; done`
       ],
       logging: new ecs.AwsLogDriver({ streamPrefix: "SimulateTraffic", mode: ecs.AwsLogDriverMode.NON_BLOCKING})
     });

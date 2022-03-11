@@ -2,7 +2,7 @@
 
 # variables
 context="infra"
-declare -A repos=( ["metrics-server"]="https://charts.bitnami.com/bitnami,infrastructure" ["aws-load-balancer-controller"]="https://aws.github.io/eks-charts,infrastructure" ["cluster-autoscaler"]="https://kubernetes.github.io/autoscaler,infrastructure" ["aws-ebs-csi-driver"]="https://kubernetes-sigs.github.io/aws-ebs-csi-driver,infrastructure" ["litmus"]="https://litmuschaos.github.io/litmus-helm/,litmus" )
+declare -A repos=( ["metrics-server"]="https://charts.bitnami.com/bitnami,infrastructure" ["aws-load-balancer-controller"]="https://aws.github.io/eks-charts,infrastructure" ["cluster-autoscaler"]="https://kubernetes.github.io/autoscaler,infrastructure" ["aws-ebs-csi-driver"]="https://kubernetes-sigs.github.io/aws-ebs-csi-driver,infrastructure" ["litmus"]="https://litmuschaos.github.io/litmus-helm/,litmus" ["kube-ops-view"]="https://charts.helm.sh/stable,monitoring" )
 
 # Install helm charts
 for name in "${!repos[@]}"; do

@@ -310,7 +310,12 @@ export class ClusterStack extends cdk.Stack {
               'sudo yum -y install jq gettext bash-completion moreutils',
               // Install SSM Session Manager plugin
               'curl "https://s3.amazonaws.com/session-manager-downloads/plugin/latest/linux_64bit/session-manager-plugin.rpm" -o "/tmp/session-manager-plugin.rpm"',
-              'sudo yum install -y /tmp/session-manager-plugin.rpm'
+              'sudo yum install -y /tmp/session-manager-plugin.rpm',
+              // Enable kubectl completion
+              "echo 'source <(kubectl completion bash)' >>~/.bashrc",
+              "echo 'alias k=kubectl' >>~/.bashrc",
+              "echo 'complete -F __start_kubectl k' >>~/.bashrc"
+
             ]
           },
         },
