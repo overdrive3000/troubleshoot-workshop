@@ -3,6 +3,7 @@ apiVersion: litmuschaos.io/v1alpha1
 kind: ChaosEngine
 metadata:
   name: engine-nginx
+  namespace: litmus
 spec:
   engineState: "active"
   annotationCheck: "false"
