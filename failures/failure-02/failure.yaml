@@ -1,0 +1,27 @@
+# stress the i/o of the targeted node with FILESYSTEM_UTILIZATION_PERCENTAGE of total free space 
+# it is mutually exclusive with the FILESYSTEM_UTILIZATION_BYTES.
+# if both are provided then it will use FILESYSTEM_UTILIZATION_PERCENTAGE for stress
+apiVersion: litmuschaos.io/v1alpha1
+kind: ChaosEngine
+metadata:
+  name: engine-nginx
+  namespace: litmus
+spec:
+  engineState: "active"
+  annotationCheck: "false"
+  chaosServiceAccount: litmus-admin
+  experiments:
+  - name: node-memory-hog
+    spec:
+      components:
+        env:
+        # percentage of total free space of file system
+        - name: MEMORY_CONSUMPTION_MEBIBYTES
+          value: '7300' # in percentage
+        - name: TOTAL_CHAOS_DURATION
+          value: '900'
+        - name: NODE_LABEL
+          value: 'nodegroup-role=web-workload'
+        - name: NODES_AFFECTED_PERC
+          value: '80'
+
