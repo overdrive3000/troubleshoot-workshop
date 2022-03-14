@@ -14,6 +14,10 @@ spec:
   - name: node-memory-hog
     spec:
       components:
+        tolerations:
+        - key: "component"
+          value: "chaos"
+          effect: "NoSchedule"
         env:
         # percentage of total free space of file system
         - name: MEMORY_CONSUMPTION_MEBIBYTES

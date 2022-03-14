@@ -12,6 +12,10 @@ spec:
   - name: docker-service-kill
     spec:
       components:
+        tolerations:
+        - key: "component"
+          value: "chaos"
+          effect: "NoSchedule"
         env:
         # name of the target node
         - name: NODE_LABEL
