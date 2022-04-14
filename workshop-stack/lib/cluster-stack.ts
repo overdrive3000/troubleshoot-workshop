@@ -2,6 +2,7 @@ import * as cdk from '@aws-cdk/core';
 import * as eks from '@aws-cdk/aws-eks';
 import * as ec2 from '@aws-cdk/aws-ec2';
 import * as iam from '@aws-cdk/aws-iam';
+import * as s3 from '@aws-cdk/aws-s3';
 import * as cr from '@aws-cdk/custom-resources';
 import * as logs from '@aws-cdk/aws-logs';
 import * as lambda from '@aws-cdk/aws-lambda';
@@ -110,6 +111,33 @@ export class ClusterStack extends cdk.Stack {
     });
 
 
+    // Create S3 bucket for SSM outputs
+    const ssmOutputsBucket = new  s3.Bucket(this, 'SSMOutputsBucket', {
+      removalPolicy: cdk.RemovalPolicy.DESTROY
+    });
+    ssmOutputsBucket.addToResourcePolicy(new iam.PolicyStatement({
+      effect: iam.Effect.ALLOW,
+      principals: [
+        new iam.ServicePrincipal('ec2.amazonaws.com'),
+        new iam.ServicePrincipal('ssm.amazonaws.com')
+      ],
+      actions: ["*"],
+      resources: [`${ssmOutputsBucket.bucketArn}/*`]
+    }));
+    cdk.Tags.of(ssmOutputsBucket).add('workshop', 'eks-troubleshoot');
+
+    const ssmOutputsBucketPolicy = new iam.Policy(this, 'SSMOutputsBucketPolicy', {
+      statements: [
+        new iam.PolicyStatement({
+          actions: ["*"],
+          resources: [`${ssmOutputsBucket.bucketArn}/*`]
+        })
+      ]
+    });
+    new cdk.CfnOutput(this, 'SSMOutputsS3Bucket', {
+      value: ssmOutputsBucket.bucketName
+    });
+
     // Create our EKS cluster.
     const cluster = new eks.Cluster(this, 'Cluster', {
       vpc,
@@ -153,6 +181,7 @@ export class ClusterStack extends cdk.Stack {
       }
     });
     ng1.role.addManagedPolicy(iam.ManagedPolicy.fromAwsManagedPolicyName('AmazonSSMManagedInstanceCore'))
+    ng1.role.attachInlinePolicy(ssmOutputsBucketPolicy);
     
     // During internal testing we found that Isengard account baselining
     // was attaching IAM roles to instances in the background. This prevents
@@ -194,6 +223,7 @@ export class ClusterStack extends cdk.Stack {
       }
     });
     ng_tools.role.addManagedPolicy(iam.ManagedPolicy.fromAwsManagedPolicyName('AmazonSSMManagedInstanceCore'))
+    ng_tools.role.attachInlinePolicy(ssmOutputsBucketPolicy);
 
     // During internal testing we found that Isengard account baselining
     // was attaching IAM roles to instances in the background. This prevents
