@@ -2,7 +2,8 @@
 image:
   registry: public.ecr.aws
 apiService:
-  create: true
+  # Intended
+  create: false
 extraArgs:
   cert-dir: "/tmp"
   kubelet-preferred-address-types: InternalIP,ExternalIP,Hostname
