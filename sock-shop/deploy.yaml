@@ -367,7 +367,7 @@ spec:
     - port: 80
       targetPort: 8079
   selector:
-    name: front-end
+    name: front-ends
 ---
 apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
