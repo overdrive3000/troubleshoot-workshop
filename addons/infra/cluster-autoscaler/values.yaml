@@ -9,8 +9,8 @@ rbac:
     name: cluster-autoscaler
 priorityClassName: important
 autoDiscovery:
-  clusterName: change-it
-awsRegion: eu-central-1
+  clusterName: troubleshoot-workshop
+awsRegion: ap-northeast-1
 replicaCount: 3
 resources:
   requests:
