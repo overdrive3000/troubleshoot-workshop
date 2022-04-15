@@ -344,7 +344,11 @@ export class ClusterStack extends cdk.Stack {
               // Enable kubectl completion
               "echo 'source <(kubectl completion bash)' >>~/.bashrc",
               "echo 'alias k=kubectl' >>~/.bashrc",
-              "echo 'complete -F __start_kubectl k' >>~/.bashrc"
+              "echo 'complete -F __start_kubectl k' >>~/.bashrc",
+              // Install mizu
+              "echo 'curl --silent -Lo /tmp/mizu github.com/up9inc/mizu/releases/latest/download/mizu_linux_amd64'",
+              "echo 'chmod 755 /tmp/mizu'",
+              "echo 'sudo mv /tmp/mizu /usr/local/bin'"
 
             ]
           },
