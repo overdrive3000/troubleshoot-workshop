@@ -1,6 +1,6 @@
 ZIPFILE ?= eks-workshop-stack-app.zip
 S3_ASSET_BUCKET ?= ee-assets-prod-us-east-1
-S3_ASSET_PREFIX ?= modules/55eea30044884e55b9982bfd0ef26b7d/v5/
+S3_ASSET_PREFIX ?= modules/55eea30044884e55b9982bfd0ef26b7d/v6/
 S3_URL := s3://$(S3_ASSET_BUCKET)/$(S3_ASSET_PREFIX)$(ZIPFILE)
 
 .PHONY: upload
