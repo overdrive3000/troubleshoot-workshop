@@ -11,14 +11,14 @@ prometheus:
   prometheusSpec:
     retention: 1d
     replicas: 1
-  storageSpec:
-    volumeClaimTemplate:
-      spec:
-        storageClassName: ebs-sc
-        accessModes: ["ReadWriteOnce"]
-        resources:
-          requests:
-            storage: 20Gi
+    storageSpec:
+      volumeClaimTemplate:
+        spec:
+          storageClassName: ebs-sc
+          accessModes: ["ReadWriteOnce"]
+          resources:
+            requests:
+              storage: 20Gi
 nodeExporter:
   nodeSelector:
    kubernetes.io/os: linux
