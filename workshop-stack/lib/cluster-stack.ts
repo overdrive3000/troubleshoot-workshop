@@ -346,10 +346,14 @@ export class ClusterStack extends cdk.Stack {
               "echo 'alias k=kubectl' >>~/.bashrc",
               "echo 'complete -F __start_kubectl k' >>~/.bashrc",
               // Install mizu
-              "echo 'curl --silent -Lo /tmp/mizu github.com/up9inc/mizu/releases/latest/download/mizu_linux_amd64'",
+              "curl --silent -Lo /tmp/mizu github.com/up9inc/mizu/releases/latest/download/mizu_linux_amd64",
               "echo 'chmod 755 /tmp/mizu'",
-              "echo 'sudo mv /tmp/mizu /usr/local/bin'"
-
+              "echo 'sudo mv /tmp/mizu /usr/local/bin'",
+              // Install k9s
+              'curl -sSL -o /tmp/k9s.tar.gz https://github.com/derailed/k9s/releases/download/v0.25.18/k9s_Linux_x86_64.tar.gz',
+              'cd /tmp',
+              'tar -xvzf k9s.tar.gz',
+              'sudo mv k9s /usr/local/bin/k9s'
             ]
           },
         },
