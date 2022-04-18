@@ -7,9 +7,21 @@ declare -A repos=( ["metrics-server"]="https://charts.bitnami.com/bitnami,infras
 # Install helm charts
 for name in "${!repos[@]}"; do
   IFS="," read -a value <<< "${repos[${name}]}"
-  echo "Installing ${name}";
-  echo "";
+  # Add helm repos
   helm --kube-context "${context}" repo add "${name}" "${value[0]}";
-  helm --kube-context "${context}" upgrade -i "${name}" "${name}/${name}" -n "${value[1]}" -f "./$name/values.yaml";
+
+  # Install helm charts, litmus will be installed just once
+  case ${name} in
+    "litmus")
+      if ! helm --kube-context "${context}" helm status -n ${name} ${name}; then
+        helm --kube-context "${context}" upgrade -i "${name}" "${name}/${name}" -n "${value[1]}" -f "./$name/values.yaml";
+      fi
+      ;;
+    *)
+      echo "Installing ${name}";
+      echo "";
+      helm --kube-context "${context}" upgrade -i "${name}" "${name}/${name}" -n "${value[1]}" -f "./$name/values.yaml";
+      ;;
+  esac
 done
 

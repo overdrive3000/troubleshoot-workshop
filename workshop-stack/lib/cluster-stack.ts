@@ -342,13 +342,13 @@ export class ClusterStack extends cdk.Stack {
               'curl "https://s3.amazonaws.com/session-manager-downloads/plugin/latest/linux_64bit/session-manager-plugin.rpm" -o "/tmp/session-manager-plugin.rpm"',
               'sudo yum install -y /tmp/session-manager-plugin.rpm',
               // Enable kubectl completion
-              "echo 'source <(kubectl completion bash)' >>~/.bashrc",
-              "echo 'alias k=kubectl' >>~/.bashrc",
-              "echo 'complete -F __start_kubectl k' >>~/.bashrc",
+              "runuser -l ec2-user -c \"echo 'source <(kubectl completion bash)' >>~/.bashrc\"",
+              "runuser -l ec2-user -c \"echo 'alias k=kubectl' >>~/.bashrc\"",
+              "runuser -l ec2-user -c \"echo 'complete -F __start_kubectl k' >>~/.bashrc\"",
               // Install mizu
               "curl --silent -Lo /tmp/mizu github.com/up9inc/mizu/releases/latest/download/mizu_linux_amd64",
-              "echo 'chmod 755 /tmp/mizu'",
-              "echo 'sudo mv /tmp/mizu /usr/local/bin'",
+              "chmod 755 /tmp/mizu",
+              "sudo mv /tmp/mizu /usr/local/bin",
               // Install k9s
               'curl -sSL -o /tmp/k9s.tar.gz https://github.com/derailed/k9s/releases/download/v0.25.18/k9s_Linux_x86_64.tar.gz',
               'cd /tmp',
