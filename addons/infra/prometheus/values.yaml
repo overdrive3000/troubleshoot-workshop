@@ -1,0 +1,43 @@
+prometheusOperator:
+  resources:
+    limits:
+      memory: 256Mi
+    requests:
+      cpu: 200m
+      memory: 256Mi
+prometheus:
+  podDisruptionBudget:
+    enabled: false
+  prometheusSpec:
+    retention: 1d
+    replicas: 1
+  storageSpec:
+    volumeClaimTemplate:
+      spec:
+        storageClassName: ebs-sc
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 20Gi
+nodeExporter:
+  nodeSelector:
+   kubernetes.io/os: linux
+defaultRules:
+  rules:
+    etcd: false
+kubeApiServer:
+  relabelings:
+    - sourceLabels:
+      - __meta_kubernetes_namespace
+      - __meta_kubernetes_service_name
+      - __meta_kubernetes_endpoint_port_name
+      action: keep
+      regex: default;kubernetes;https
+    - targetLabel: __address__
+      replacement: kubernetes.default.svc:443
+kubeControllerManager:
+  enabled: false
+kubeEtcd:
+  enabled: false
+kubeScheduler:
+  enabled: false
