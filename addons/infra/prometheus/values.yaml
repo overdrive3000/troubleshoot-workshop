@@ -5,6 +5,16 @@ prometheusOperator:
     requests:
       cpu: 200m
       memory: 256Mi
+alertmanager:
+  alertmanagerSpec:
+    storage:
+      volumeClaimTemplate:
+        spec:
+          storageClassName: ebs-sc
+          accessModes: ["ReadWriteOnce"]
+          resources:
+            requests:
+              storage: 10Gi
 prometheus:
   podDisruptionBudget:
     enabled: false
