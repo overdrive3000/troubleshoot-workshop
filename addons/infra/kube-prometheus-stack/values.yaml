@@ -51,3 +51,6 @@ kubeEtcd:
   enabled: false
 kubeScheduler:
   enabled: false
+grafana:
+  service:
+    type: LoadBalancer
