@@ -13,7 +13,7 @@ for name in "${!repos[@]}"; do
   # Install helm charts, litmus will be installed just once
   case ${name} in
     "litmus")
-      if ! helm --kube-context "${context}" helm status -n ${name} ${name}; then
+      if ! helm --kube-context "${context}" status -n ${name} ${name}; then
         helm --kube-context "${context}" upgrade -i "${name}" "${name}/${name}" -n "${value[1]}" -f "./$name/values.yaml";
       fi
       ;;
