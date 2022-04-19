@@ -903,7 +903,6 @@ metadata:
   name: user-db-pvc
   namespace: sock-shop
 spec:
-  storageClassName: ebs-sc
   accessModes:
     - ReadWriteOnce
   resources:
