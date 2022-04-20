@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo "Install RBAC"
-kubectl apply -n litmus -f rbac.yaml
+kubectl apply -f rbac.yaml
 
 echo "Install failure"
-kubectl apply -n litmus -f failure.yaml
+kubectl apply -f failure.yaml
