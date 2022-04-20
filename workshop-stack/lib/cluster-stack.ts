@@ -353,7 +353,12 @@ export class ClusterStack extends cdk.Stack {
               'curl -sSL -o /tmp/k9s.tar.gz https://github.com/derailed/k9s/releases/download/v0.25.18/k9s_Linux_x86_64.tar.gz',
               'cd /tmp',
               'tar -xvzf k9s.tar.gz',
-              'sudo mv k9s /usr/local/bin/k9s'
+              'sudo mv k9s /usr/local/bin/k9s',
+              // Install litmusctl
+              'curl -sSL -o /tmp/litmusctl.tar.gz https://litmusctl-production-bucket.s3.amazonaws.com/litmusctl-linux-amd64-v0.9.0.tar.gz',
+              'cd /tmp',
+              'tar -xvzf litmusctl.tar.gz',
+              'sudo mv litmusctl /usr/local/bin/'
             ]
           },
         },
