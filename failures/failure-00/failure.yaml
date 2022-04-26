@@ -5,25 +5,19 @@ metadata:
   namespace: kube-system
 spec:
   appinfo:
-    appns: 'kube-system'
-    applabel: 'k8s-app=kube-dns'
+    appns: 'sock-shop'
+    applabel: 'name=user'
     appkind: 'deployment'
   # It can be active/stop
   engineState: 'active'
-  chaosServiceAccount: pod-delete-sa
+  chaosServiceAccount: pod-dns-error-sa
   experiments:
-    - name: pod-delete
+    - name: pod-dns-error
       spec:
         components:
           env:
             # set chaos duration (in sec) as desired
             - name: TOTAL_CHAOS_DURATION
               value: '900'
-
-            # set chaos interval (in sec) as desired
-            - name: CHAOS_INTERVAL
-              value: '5'
-              
-            # pod failures without '--force' & default terminationGracePeriodSeconds
-            - name: FORCE
-              value: 'true'
+            - name: PODS_AFFECTED_PERC
+              value: '100'
