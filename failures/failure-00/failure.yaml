@@ -2,7 +2,7 @@ apiVersion: litmuschaos.io/v1alpha1
 kind: ChaosEngine
 metadata:
   name: nginx-chaos
-  namespace: kube-system
+  namespace: sock-shop
 spec:
   appinfo:
     appns: 'sock-shop'
